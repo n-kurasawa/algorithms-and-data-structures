@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 func max(a, b int) int {
 	if a < b {
 		return b
@@ -11,19 +13,24 @@ func max(a, b int) int {
 func main() {
 	var (
 		n = 6
-		w = 15
+		w = 4
 	)
-	values := []int{}
-	wights := []int{}
+	wights := []int{2, 1, 3, 2, 1, 5}
+	values := []int{3, 2, 6, 1, 3, 85}
 
 	dp := make([][]int, n+1)
+	for i := 0; i < len(dp); i++ {
+		dp[i] = make([]int, w+1)
+	}
 
 	for i := 0; i < n; i++ {
-		for j := 0; j <= w; w++ {
+		for j := 0; j <= w; j++ {
 			if j-wights[i] >= 0 {
-
+				dp[i+1][j] = max(dp[i+1][j], dp[i][j-wights[i]]+values[i])
 			}
+			dp[i+1][j] = max(dp[i+1][j], dp[i][j])
 		}
 	}
 
+	fmt.Println(dp[n][w])
 }
