@@ -13,7 +13,7 @@ func max(a, b int) int {
 func main() {
 	var (
 		n = 6
-		w = 4
+		w = 9
 	)
 	wights := []int{2, 1, 3, 2, 1, 5}
 	values := []int{3, 2, 6, 1, 3, 85}
@@ -25,10 +25,11 @@ func main() {
 
 	for i := 0; i < n; i++ {
 		for j := 0; j <= w; j++ {
-			if j-wights[i] >= 0 {
-				dp[i+1][j] = max(dp[i+1][j], dp[i][j-wights[i]]+values[i])
+			if j >= wights[i] {
+				dp[i+1][j] = max(dp[i][j], dp[i][j-wights[i]]+values[i])
+			} else {
+				dp[i+1][j] = dp[i][j]
 			}
-			dp[i+1][j] = max(dp[i+1][j], dp[i][j])
 		}
 	}
 
